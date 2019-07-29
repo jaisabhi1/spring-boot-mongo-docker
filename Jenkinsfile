@@ -5,7 +5,6 @@ node{
     }
     
     stage(" Maven Clean Package"){
-        def mvn_version = 'localmaven'
-                sh "mvn clean package"
+        sh 'mvn clean package'
 	    } 
 }
