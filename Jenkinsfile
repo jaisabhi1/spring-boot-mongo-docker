@@ -5,9 +5,8 @@ node{
     }
     
     stage(" Maven Clean Package"){
-            def mvn_version = 'localmaven'
-	    withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ){
-            sh "mvn clean package"
+            def mvnHome = tool name: 'localmaven', type: 'maven'
+	    sh "${mvnHome}/bin/mvn -B -DskipTests clean package"
 	    }
     } 
     
