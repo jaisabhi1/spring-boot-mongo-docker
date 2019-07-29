@@ -1,12 +1,7 @@
-node{
-       
-    
+pipeline {
+    agent any
+
     stages {
-	    
-	 stage('SCM Checkout'){
-        git credentialsId: 'GIT_HUB', url:  'https://github.com/jaisabhi1/spring-boot-mongo-docker.git',branch: 'master'
-    }
-	    
         stage ('Checking java version') {
 
             steps {
@@ -42,5 +37,41 @@ node{
                 
             }
         }
+
+
+	stage ('REST') {
+            steps {
+     
+                    sh 'sleep 10'
+
+            }
+        }
+
+        stage ('Building docker image') {
+            steps {
+               
+                    sh 'docker build -t dock .'
+                
+            }
+        }
+
+	stage ('Again rest') {
+            steps {
+
+                    sh 'sleep 10'
+
+            }
+        }
+	stage ('Pushing docker image to registry') {
+            steps {
+
+                    sh 'docker push jaisabhi1/dock'
+
+            }
+        }
+
+
     }
+
+
 }
