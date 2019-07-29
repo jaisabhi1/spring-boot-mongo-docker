@@ -7,7 +7,7 @@ node{
     stage(" Maven Clean Package"){
             def mvnHome = tool name: 'localmaven', type: 'maven'
 	    sh "${mvnHome}/bin/mvn -B -DskipTests clean package"
-	    }
+	    
     } 
     
     
