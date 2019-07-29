@@ -15,8 +15,8 @@ pipeline {
 
             steps {
              
-                    sh 'export M2_HOME=/opt/maven'
-                    sh 'export M2_HOME=/opt/maven'
+                    sh 'export M2_HOME=/opt/apache-maven'
+                    sh 'export M2_HOME=/opt/apache-maven'
                 
             }
         }
