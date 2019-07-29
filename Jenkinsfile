@@ -5,10 +5,10 @@ node{
     }
     
     stage(" Maven Clean Package"){
-      def mvn_version = 'localmaven'
-      withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] )
-      sh "mvn clean package"
-      
+            def mvn_version = 'localmaven'
+	    withEnv( ["PATH+MAVEN=${tool mvn_version}/bin"] ){
+            sh "mvn clean package"
+	    }
     } 
     
     
