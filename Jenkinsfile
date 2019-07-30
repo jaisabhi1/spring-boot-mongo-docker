@@ -1,77 +1,39 @@
-pipeline {
-    agent any
-
-    stages {
-        stage ('Checking java version') {
-
-            steps {
-             
-                    sh 'java -version'
-         
-            }
-        }
-
-        stage ('exporting maven Environment variable') {
-
-            steps {
-             
-                    sh 'export M2_HOME=/opt/apache-maven'
-                    sh 'export M2_HOME=/opt/apache-maven'
-                
-            }
-        }
-
-
-        stage ('maven version') {
-            steps {
-               
-                    sh 'mvn -version'
-                
-            }
-        }
-
-        stage ('Building APP') {
-            steps {
-               
-                    sh 'mvn clean package'
-                
-            }
-        }
-
-
-	stage ('REST') {
-            steps {
+node{
      
-                    sh 'sleep 10'
-
-            }
-        }
-
-        stage ('Building docker image') {
-            steps {
-               
-                    sh 'docker build -t dock .'
-                
-            }
-        }
-
-	stage ('Again rest') {
-            steps {
-
-                    sh 'sleep 10'
-
-            }
-        }
-	stage ('Pushing docker image to registry') {
-            steps {
-
-                    sh 'docker push jaisabhi1/dock'
-
-            }
-        }
-
-
+    stage('SCM Checkout'){
+        git credentialsId: 'GIT_CREDENTIALS', url:  'https://github.com/MithunTechnologiesDevOps/spring-boot-mongo-docker.git',branch: 'master'
     }
-
-
+    
+    stage(" Maven Clean Package"){
+      def mavenHome =  tool name: "Maven-3.6.1", type: "maven"
+      def mavenCMD = "${mavenHome}/bin/mvn"
+      sh "${mavenCMD} clean package"
+      
+    } 
+    
+    
+    stage('Build Docker Image'){
+        sh 'docker build -t dockerhandson/spring-boot-mongo .'
+    }
+    
+    stage('Push Docker Image'){
+        withCredentials([string(credentialsId: 'DOKCER_HUB_PASSWORD', variable: 'DOKCER_HUB_PASSWORD')]) {
+          sh "docker login -u dockerhandson -p ${DOKCER_HUB_PASSWORD}"
+        }
+        sh 'docker push dockerhandson/spring-boot-mongo'
+     }
+     
+     stage("Deploy To Kuberates Cluster"){
+       kubernetesDeploy(
+         configs: 'springBootMongo.yml', 
+         kubeconfigId: 'KUBERNATES_CONFIG',
+         enableConfigSubstitution: true
+        )
+     }
+	 
+	  /**
+      stage("Deploy To Kuberates Cluster"){
+        sh 'kubectl apply -f pringBootMongo.yml'
+      } **/
+     
 }
