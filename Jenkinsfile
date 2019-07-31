@@ -17,7 +17,10 @@ node{
     }
     
     stage('Push Docker Image'){
-        sh "docker login -u jaisabhi1 -p abhishekk01."
+	    withCredentials([string(credentialsId: 'Dockerhub', variable: 'Dockerhub')]) {
+		    sh "docker login -u jaisabhi1 -p ${Dockerhub}"
+}
+        
         sh 'docker push jaisabhi1/spring-boot-mongo'
      }
      
