@@ -24,11 +24,9 @@ node{
      }
      
      stage("Deploy To Kuberates Cluster"){
-       kubernetesDeploy(
-         configs: 'springBootMongo.yml', 
-         kubeconfigId: 'Kubeconfig',
-         enableConfigSubstitution: true
-        )
+       withCredentials([kubeconfigContent(credentialsId: 'Kubeconfig', variable: 'KUBECONFIG_CONTENT')]) {
+        sh '''cat "$KUBECONFIG_CONTENT" >kubeconfig && kubectl version --kubeconfig kubeconfig && rm kubeconfig'''
+}
      }
 	 
 	  /**
