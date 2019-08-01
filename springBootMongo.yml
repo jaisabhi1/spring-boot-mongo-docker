@@ -12,7 +12,7 @@ spec:
         name: springboot
     spec:
       containers:
-      - image: jaisabhi1/abhi:pipeline
+      - image: jaisabhi1/spring-boot-mongo
         name: springboot
         ports:
         - name: springboot
