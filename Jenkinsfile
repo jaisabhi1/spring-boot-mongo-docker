@@ -25,8 +25,9 @@ node{
      
      stage("Deploy To Kuberates Cluster"){
        kubernetesDeploy(
-         configs: 'springBootMongo.yml', 
          kubeconfigId: 'Kubeconfig',
+	 kubeConfig: [path: '/var/lib/jenkins/workspace/.kube/config'],
+	 configs: 'springBootMongo.yml',
          enableConfigSubstitution: true
         )
      }
