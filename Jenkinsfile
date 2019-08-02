@@ -24,7 +24,7 @@ node{
      }
      
       stage("Deploy To Kuberates Cluster"){
-         withCredentials([string(credentialsId: 'jenkins', variable: 'Kubernetes_Content')]) {
+         withCredentials([string(credentialsId: 'jenkins', variable: 'jenkins')]) {
             kubectl get pods
 	 }
      }
