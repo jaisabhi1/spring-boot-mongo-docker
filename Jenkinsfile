@@ -23,15 +23,7 @@ node{
         sh 'docker push jaisabhi1/spring-boot-mongo'
      }
      
-     stage("Deploy To Kuberates Cluster"){
-       withCredentials([kubeconfigContent(credentialsId: 'jenkins', variable: 'KUBECONFIG_CONTENT')]) {
-        sh '''kubectl version --kubeconfig kubeconfig && rm kubeconfig'''
-}
-     }
-	 
-	  /**
       stage("Deploy To Kuberates Cluster"){
         sh 'kubectl apply -f pringBootMongo.yml'
-      } **/
-     
+      }     
 }
