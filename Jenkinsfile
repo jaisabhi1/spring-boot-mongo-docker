@@ -24,7 +24,7 @@ node{
      }
      
      stage("Deploy To Kuberates Cluster"){
-       withCredentials([kubeconfigContent(credentialsId: 'Kubeconfig', variable: 'KUBECONFIG_CONTENT')]) {
+       withCredentials([kubeconfigContent(credentialsId: 'jenkins', variable: 'KUBECONFIG_CONTENT')]) {
         sh '''kubectl version --kubeconfig kubeconfig && rm kubeconfig'''
 }
      }
