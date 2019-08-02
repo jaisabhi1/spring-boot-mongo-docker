@@ -24,6 +24,15 @@ node{
      }
      
       stage("Deploy To Kuberates Cluster"){
-        sh 'kubectl apply -f springBootMongo.yml'
-      }     
+       kubernetesDeploy(
+            withCredentials([string(credentialsId: 'jenkins', variable: 'Kubernetes_Content')]) {
+                 kubectl get pods
+        )
+     }
+	 
+	  /**
+      stage("Deploy To Kuberates Cluster"){
+        sh 'kubectl apply -f pringBootMongo.yml'
+      } **/
+     
 }
