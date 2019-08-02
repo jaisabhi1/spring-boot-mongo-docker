@@ -27,7 +27,6 @@ node{
        kubernetesDeploy(
             withCredentials([string(credentialsId: 'jenkins', variable: 'Kubernetes_Content')]) {
                  kubectl get pods
-        )
      }
 	 
 	  /**
