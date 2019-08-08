@@ -23,7 +23,7 @@ node{
      }
      
       stage("Deploy To Kuberates Cluster"){
-                    kubeconfigId: 'Kubeconfig',
+                    kubeconfigId:'Kubeconfig',
                     configs: 'springBootMongo.yml',
                     enableConfigSubstitution: true 
 	 }
