@@ -22,16 +22,8 @@ node{
         sh 'docker push jaisabhi1/spring-boot-mongo'
      }
      
-      stage("Deploy To Kuberates Cluster"){
-       kubernetesDeploy(
-         configs: 'springBootMongo.yml', 
-         kubeconfigId: 'Kubeconfig',
-         enableConfigSubstitution: true
-        )
-     }
-	  /**
-      stage("Deploy To Kuberates Cluster"){
-        sh 'kubectl apply -f pringBootMongo.yml'
-      } **/
+    stage("Deploy To Kuberates Cluster"){
+        sh 'kubectl apply -f springBootMongo.yml'
+      }
      
 }
